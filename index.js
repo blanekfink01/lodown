@@ -25,7 +25,8 @@ function each(collection, action) {
 /**
  * identity: returns the same value
  * 
- * @param {any value} returns value
+ * @param {any value} any data type is inputted
+ * @return {any value} returns input data unchanged
  */
 function identity (val) {
     return val;
@@ -34,7 +35,8 @@ function identity (val) {
 /**
  * typeof: returns type of a value
  * 
- * @param {any value} returns a string representing type of value
+ * @param {any value} any datatype is inputted
+ * @return {string} returns a string representing type of value was inputted
  */
 function typeOf(val) {
     if (Array.isArray(val)) {
@@ -51,6 +53,7 @@ function typeOf(val) {
  * 
  * @param {array} the array being manipulated
  * @param {number} x items needed from front of the array
+ * @return {array} a new array containing 1st x values from array
  */
 function first(arr, num) {
     if (!Array.isArray(arr)) {
@@ -71,6 +74,7 @@ function first(arr, num) {
  * 
  * @param {array} the array to copy values from
  * @param {number} number of values wanted from end of array
+ * @return {array} a new array of last x values from inputted array
  */
 function last(arr, num) {
     if (!Array.isArray(arr)) {
@@ -92,6 +96,7 @@ function last(arr, num) {
  * 
  * @param {array} an array of values
  * @param {value} the value sought in the array to return the index
+ * @return {number} returns a number representing the index of the first input value in array
  */
 function indexOf(arr, val) {
     for (let i = 0; i < arr.length; i++) {
@@ -107,6 +112,7 @@ function indexOf(arr, val) {
  * 
  * @param {array} an array containing a value
  * @param {value} the value sought for in the array
+ * @return {boolean}returns a boolean representing if a certain value is in an input array or not
  */
 function contains(arr, val) {
     return indexOf(arr, val) !== -1 ? true: false;
@@ -133,7 +139,8 @@ function each(coll, func) {
 /**
  * unique: return a new array of all elements from an array with the duplicate values removed
  * 
- * @param {array} array will be iterated through and only have 1 copy of each unique element copied into the new returned array
+ * @param {array} array will be iterated through and only have 1 copy of each unique element copied into a new array
+ * @return {array} a new array with all the values from the inputted array except for duplicate values
  */
 function unique(arr) {
     const uniq = [];
@@ -150,6 +157,7 @@ function unique(arr) {
  * 
  * @param {array} an array whose values will be tested
  * @param {function} a function that takes in elements from the array and resolves to true or false
+ * @return {array} returns a new array containing only values from the inputted array that passed a truthy test from the inputted function
  */
 function filter(arr, func) {
     const truthy = [];
@@ -162,6 +170,7 @@ function filter(arr, func) {
  * 
  * @param {array} the array the function
  * @param {func} a function that takes in elements from the array and resolves to true or false
+ * @return {array} returns a new array containing only values from the inputted array that passed a falsey test from the inputted function
  */
 function reject(arr, func) {
     const falsey = [];
@@ -175,6 +184,7 @@ function reject(arr, func) {
  * 
  * @param {array} an array that will be partitioned
  * @param {function} a function that returns true or false when given element, key, array
+ * @return {array} returns a new array containing 2 arrays; one with values that resolved to true after being put into the input function, and another with the vals that failed the test
  */
 function partition(arr, func) {
     const truthy = [];
@@ -189,6 +199,7 @@ function partition(arr, func) {
  * 
  * @param {collection} an array or object that will be used to create the new array or object
  * @param {function} a function that returns a value that will "replace" each element from the original collection
+ * @return {array} returns a new array that contains all the altered values from passing elements of the input array through the input function
  */
 function map(coll, func) {
     const mapped = [];
@@ -201,6 +212,7 @@ function map(coll, func) {
  * 
  * @param {array} an array of objects to be iterated over
  * @param {string} a string representing the key that will be used to access a value from each object in the array
+ * @return {array} returns an array of every value at said key of each object in the input array
  */
 function pluck(arrOfObj, prop) {
     return map(arrOfObj, (obj, i, arr) => obj[prop]);
@@ -211,6 +223,7 @@ function pluck(arrOfObj, prop) {
  * 
  * @param {array or object} collection whose values get tested 
  * @param {function} a function that returns true or false
+ * @return {boolean} a boolean representing if every element from the inputted array passed a truth test from input function
  */
 function every(coll, func) {
     let every = true;
@@ -223,10 +236,11 @@ function every(coll, func) {
 }
 
 /**
- * every: returns a boolean representing whether at least 1 value in a collection returns true when tested with a function
+ * some: returns a boolean representing whether at least 1 value in a collection returns true when tested with a function
  * 
  * @param {array or object} collection whose values get tested 
  * @param {function} a function that returns true or false
+ * @return {boolean} a boolean representing if at least 1 element from the inputted array passed a truth test from input function
  */
 function some(coll, func) {
     let some = false;
@@ -244,6 +258,7 @@ function some(coll, func) {
  * @param {array} an array of values to be reduced
  * @param {function} takes a function that takes in a previous result, a current element, and an index
  * @param {seed} an optional seed that will take the place of the first element of the array if defined
+ * @return {any value} returns a single value made using the passed in function
  */
 function reduce(arr, func, seed, i = 0) {
     if (seed === undefined) {
@@ -262,6 +277,7 @@ function reduce(arr, func, seed, i = 0) {
  * extend: takes in an infinte amount of objects and recurssively adds thgem to the first object passed in and returns it
  * 
  * @param {objects...} objects that will all have their key value pairs added to the first object
+ * @return {object} the first inputted object with all the keys and values from the othwer objects passed in
  */
 function extend (...objects) {
     console.log(objects.length, objects);
