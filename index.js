@@ -63,7 +63,6 @@ function first(arr, num) {
     } else if (num > arr.length) {
         return arr;
     } else {
-        // functionality here
         return arr.slice(0, num);
     }
 };
@@ -84,7 +83,6 @@ function last(arr, num) {
     } else if (num > arr.length) {
         return arr;
     } else {
-        // functionality here
         return arr.slice(0 - num);
     }
 };
@@ -111,7 +109,7 @@ function indexOf(arr, val) {
  * @param {value} the value sought for in the array
  */
 function contains(arr, val) {
-    return _.indexOf(arr, val) !== -1 ? true: false;
+    return indexOf(arr, val) !== -1 ? true: false;
 };
 
 /**
@@ -140,8 +138,7 @@ function each(coll, func) {
 function unique(arr) {
     const uniq = [];
     for (let i = 0; i < arr.length; i++) {
-        // if not in uniq: push it
-        if (_.indexOf(uniq, arr[i]) === -1) {
+        if (indexOf(uniq, arr[i]) === -1) {
             uniq.push(arr[i]);
         }
     }
@@ -156,7 +153,7 @@ function unique(arr) {
  */
 function filter(arr, func) {
     const truthy = [];
-    _.each(arr, (val, i, arr) => func(val, i, arr) ? truthy.push(val) : false);
+    each(arr, (val, i, arr) => func(val, i, arr) ? truthy.push(val) : false);
     return truthy;
 };
 
@@ -168,7 +165,7 @@ function filter(arr, func) {
  */
 function reject(arr, func) {
     const falsey = [];
-    _.each(arr, (val, i, arr) => func(val, i, arr) ? true : falsey.push(val));
+    each(arr, (val, i, arr) => func(val, i, arr) ? true : falsey.push(val));
     return falsey;
 };
 
@@ -182,7 +179,7 @@ function reject(arr, func) {
 function partition(arr, func) {
     const truthy = [];
     const falsey = [];
-    _.each(arr, (val, i, arr) => func(val, i, arr) ? truthy.push(val) : falsey.push(val));
+    each(arr, (val, i, arr) => func(val, i, arr) ? truthy.push(val) : falsey.push(val));
     return [truthy, falsey];
 }
 
@@ -195,7 +192,7 @@ function partition(arr, func) {
  */
 function map(coll, func) {
     const mapped = [];
-    _.each(coll, (el, i, coll) => mapped.push(func(el, i, coll)));
+    each(coll, (el, i, coll) => mapped.push(func(el, i, coll)));
     return mapped;
 };
 
@@ -206,7 +203,7 @@ function map(coll, func) {
  * @param {string} a string representing the key that will be used to access a value from each object in the array
  */
 function pluck(arrOfObj, prop) {
-    return _.map(arrOfObj, (obj, i, arr) => obj[prop]);
+    return map(arrOfObj, (obj, i, arr) => obj[prop]);
 };
 
 /**
@@ -218,9 +215,9 @@ function pluck(arrOfObj, prop) {
 function every(coll, func) {
     let every = true;
     if (typeof func === 'function') {
-        _.each(coll, (el, i, coll) => func(el, i, coll) ? true : every = false);
+        each(coll, (el, i, coll) => func(el, i, coll) ? true : every = false);
     } else {
-        _.each(coll, (el, i, coll) => el ? true : every = false);
+        each(coll, (el, i, coll) => el ? true : every = false);
     }
     return every;
 }
@@ -234,9 +231,9 @@ function every(coll, func) {
 function some(coll, func) {
     let some = false;
     if (typeof func === 'function') {
-        _.each(coll, (el, i, coll) => func(el, i, coll) ? some = true : false);
+        each(coll, (el, i, coll) => func(el, i, coll) ? some = true : false);
     } else {
-        _.each(coll, (el, i, coll) => el ? some = true : false);
+        each(coll, (el, i, coll) => el ? some = true : false);
     }
     return some;
 };
@@ -258,7 +255,7 @@ function reduce(arr, func, seed, i = 0) {
     if (arr.length === i) {
         return res;
     }
-    return _.reduce(arr, func, res, i);
+    return reduce(arr, func, res, i);
 }
 
 /**
@@ -266,39 +263,17 @@ function reduce(arr, func, seed, i = 0) {
  * 
  * @param {objects...} objects that will all have their key value pairs added to the first object
  */
-/** _.extend
-* Arguments:
-*   1) An Object
-*   2) An Object
-*   ...Possibly more objects
-* Objectives:
-*   1) Copy properties from <object 2> to <object 1>
-*   2) If more objects are passed in, copy their properties to <object 1> as well, in the order they are passed in.
-*   3) Return the update <object 1>
-* Examples:
-*   var data = {a:"one"};
-*   _.extend(data, {b:"two"}); -> data now equals {a:"one",b:"two"}
-*   _.extend(data, {a:"two"}); -> data now equals {a:"two"}
-*/
-_.extend = (...objects) => {
+function extend (...objects) {
     console.log(objects.length, objects);
-    // i can copy props from lenght - 1 tolength -2 if objects.length is more than 1 and then recursively call with one less object in objects maybe
     if (objects.length > 1) {
-        // delete old props using for in loop of last el of arr
-        // add new props after deletin g appropriately
         for (let key in objects[objects.length - 1]) {
             delete objects[objects.length - 2][key];
             objects[objects.length - 2][key] = objects[objects.length - 1][key];
         }
-        // return a call to extend with objects with last el removed
-        return _.extend(...objects.slice(0, objects.length-1));
+        return extend(...objects.slice(0, objects.length-1));
     } else if (objects.length === 1) {
         return objects[0];
     }
 };
-
-
-
-
 
 module.exports.each = each;
